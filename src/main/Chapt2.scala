@@ -1,6 +1,7 @@
 package main
 
-import scala.collection.immutable.StringOps
+import scala.collection.SortedMap
+import scala.collection.immutable.{ListMap, StringOps}
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
@@ -9,8 +10,30 @@ import scala.util.Random
   */
 object Chapt2 {
   def main(args: Array[String]): Unit = {
+
+//    val test = new Chapt5().getme
+//    println(test)
+//    val test1 = new Chapt5(11).getme
+//    println(test1)
+
+//    val test = new BankAccount()
+//    test.deposit(100)
+//    test.deposit(1)
+//    test.withdraw(99)
+//    println(test.state)
+
+      val time1 = new Time(10, 23)
+      val time2 = new Time(10, 20)
+      println(time1.before(time2))
+
+
+
+
+
+
     //println(remNegativeButFirst(Array(1,-1,2, -4, 2,-4)).mkString(" "))
-    fileWordCount("/Users/eugenel/Google Drive/Courses/ScalaLearn/1 - Getting Started/1 - Subtitles (text) for Course Introduction (2_44).txt")
+    //fileWordCountImmut("/Users/eugenel/Google Drive/Courses/ScalaLearn/1 - Getting Started/1 - Subtitles (text) for Course Introduction (2_44).txt")
+    //println(lteggt(Array(1,-1,2, -4, 2,-4, 0), 0))
   }
 
   //The signum of a number is 1 if the number is positive, –1 if it is negative, and 0 if it is zero. Write a function that computes this value
@@ -126,4 +149,35 @@ object Chapt2 {
 
   }
 
+  //4.3 and 4.4
+  def fileWordCountImmut (FileName : String) :Unit = {
+
+    var wordsMap = Map[String, Int]().withDefaultValue(0)
+
+    val in = new java.util.Scanner(new java.io.File(FileName))
+
+    var word:String=""
+
+    while (in.hasNext()) {
+      word = in.next()
+      wordsMap += (word -> (wordsMap(word)+1))
+    }
+
+    for ( (k,v) <- wordsMap) println("Word:" + k + " "+v+" times")
+    println("======Sorted:==========")
+    for ( (k,v) <- ListMap(wordsMap.toSeq.sortWith(_._2 >_._2):_*)) println("Word:" + k + " "+v+" times")
+
+  }
+
+  //4.8
+  def minmax (values: Array[Int]): Tuple2[Int, Int] = {
+    (values.max, values.min)
+  }
+
+  //4.9
+  def lteggt (values: Array[Int], v:Int): Tuple3[Int, Int, Int] = {
+    (values.count(_<v), values.count(_==v), values.count(_>v))
+  }
+
 }
+
