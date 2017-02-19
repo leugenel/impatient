@@ -22,13 +22,9 @@ object Chapt2 {
 //    test.withdraw(99)
 //    println(test.state)
 
-      val time1 = new Time(10, 23)
-      val time2 = new Time(10, 20)
-      println(time1.before(time2))
-
-
-
-
+//      val time1 = new Time(10, 23)
+//      val time2 = new Time(10, 20)
+//      println(time1.before(time2))
 
 
     //println(remNegativeButFirst(Array(1,-1,2, -4, 2,-4)).mkString(" "))
