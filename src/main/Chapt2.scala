@@ -1,9 +1,7 @@
+package impatient
 package main
 
-import scala.collection.SortedMap
-import scala.collection.immutable.{ListMap, StringOps}
-import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
+import scala.collection.immutable._
 
 /**
   * Created by eugenel on 1/8/17.
@@ -63,6 +61,7 @@ object Chapt2 {
   }
 
   def randArr(n:Int) : Array[Int] = {
+    import scala.util.Random
     val myArra = Array.fill[Int](n)(Random.nextInt())
     myArra
   }

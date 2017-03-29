@@ -1,6 +1,6 @@
+package impatient
 package main
 
-import java.io.IOException
 
 /**
   * Created by eugenel on 2/1/17.
