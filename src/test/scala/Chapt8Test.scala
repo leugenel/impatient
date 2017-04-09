@@ -69,4 +69,52 @@ class Chapt8Test extends FunSuite{
     println(bundle.description)
   }
 
+  test("class LabeledPoint"){
+    val p1 = new LabeledPoint("label1", 1,2)
+    val p2 = new LabeledPoint("label2", 10,20)
+    assert(p1.label=="label1")
+    assert(p1.x==1)
+    assert(p1.y==2)
+    assert(p2.label=="label2")
+    assert(p2.x==10)
+    assert(p2.y==20)
+
+  }
+
+  test ("class Shape"){
+    //Rectangle
+    val p1:Point = new Point(10, 20)
+    val p2:Point = new Point(6, 30)
+    val rect:Rectangle = new Rectangle(p1, p2)
+    val rectCenter = rect.centerPoint()
+    assert(rectCenter.x==8)
+    assert(rectCenter.y==25)
+    val circle:Circle  = new Circle(p1, 1)
+    assert(circle.centerPoint.x==10)
+    assert(circle.centerPoint.y==20)
+  }
+
+  test ("class Square"){
+    val sq: Square = new Square(5,10,20)
+    assert(sq.getHeight==5)
+    assert(sq.getWidth==5)
+    assert(sq.getX==10)
+    assert(sq.getY==20)
+    val sqz:Square = new Square(50)
+    assert(sqz.getHeight==50)
+    assert(sqz.getWidth==50)
+    assert(sqz.getX==0)
+    assert(sqz.getY==0)
+    val sqzz:Square = new Square()
+    assert(sqzz.getHeight==0)
+    assert(sqzz.getWidth==0)
+    assert(sqzz.getX==0)
+    assert(sqzz.getY==0)
+
+  }
+  test ("class Creature"){
+    val ant:Ant = new Ant()
+    assert(ant.range==2)
+  }
+
 }

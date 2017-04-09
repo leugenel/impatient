@@ -87,3 +87,54 @@ class Bundle (items: Array[Item]) extends Item {
     }
 
 }
+
+//8.5
+//“Design a class Point whose x and y coordinate values can be provided in a constructor.
+// Provide a subclass LabeledPoint whose constructor takes a label value and x and y coordinates, such as”
+//“new LabeledPoint("Black Thursday", 1929, 230.07)”
+class Point (_x:Int, _y:Int){
+    val x:Int = _x
+    val y:Int = _y
+}
+class LabeledPoint(_label: String, x:Int, y:Int) extends Point(x, y){
+    val label:String = _label
+}
+
+//8.6
+//“Define an abstract class Shape with an abstract method centerPoint and subclasses Rectangle and Circle.
+// Provide appropriate constructors for the subclasses and override the centerPoint method in each subclass.”
+
+abstract class Shape {
+    def centerPoint(): Point
+}
+
+class Rectangle (p1:Point, p2:Point) extends Shape{
+    override def centerPoint(): Point ={
+        new Point ( (p1.x+p2.x)/2, (p1.y+p2.y)/2)
+    }
+}
+
+class Circle (override val centerPoint:Point, var radius:Int) extends Shape
+
+
+//8.7
+//“Provide a class Square that extends java.awt.Rectangle and has three constructors: one that constructs a square with
+// a given corner point and width, one that constructs a square with corner (0, 0)
+// and a given width, and one that constructs a square with corner (0, 0) and width 0.”
+class Square(width:Int, x:Int, y:Int) extends java.awt.Rectangle(x, y, width, width){
+    def this(width:Int) = this(width,0,0)
+    def this() = this(0,0,0)
+}
+
+//8.9
+//“replace val range with a def. What happens when you also use a def in the Ant subclass?
+// What happens when you use a val in the subclass? Why?”
+class Creature {
+    def range: Int = 10
+    val env: Array[Int] = new Array[Int](range)
+}
+class Ant extends Creature {
+    override val range = 2
+}
+
+
