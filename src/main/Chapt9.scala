@@ -73,7 +73,7 @@ class Chapt9 {
 
     val entries = Files.walk(Paths.get(dir))
     try{
-      entries.filter(s => !Files.isDirectory(s) && (s.toString contains extension)).count()
+      entries.filter(s => !Files.isDirectory(s) && (s.toString endsWith extension)).count()
     } finally {entries.close()}
 
   }

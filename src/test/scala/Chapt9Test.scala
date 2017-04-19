@@ -90,7 +90,7 @@ class Chapt9Test extends FunSuite{
 
   test ("Calculate extensions"){
     val dir: String = s"/Users/eugenel/Documents/Code/Selen3Try/target"
-    val extension : String = "class"
+    val extension : String = ".class"
     assert (new Chapt9().findSpecificExtension(dir, extension) == 5)
   }
 
