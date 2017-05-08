@@ -1,4 +1,6 @@
 package impatient
+import java.io.{File, FileInputStream, PrintWriter}
+
 import org.scalatest.FunSuite
 
 /**
@@ -46,9 +48,28 @@ class Chpt10Test extends FunSuite{
     mp.addPropertyChangeListener(listener)
     mp.move(10, 5)
     assert(listener.savedEvent.getPropertyName=="move")
+    assert(listener.savedEvent.getOldValue.toString=="java.awt.Point[x=0,y=0]")
     assert(listener.savedEvent.getNewValue.toString=="java.awt.Point[x=10,y=5]")
+    mp.setLocation(15,30)
+    assert(listener.savedEvent.getPropertyName=="setLocation")
+    assert(listener.savedEvent.getOldValue.toString=="java.awt.Point[x=10,y=5]")
+    assert(listener.savedEvent.getNewValue.toString=="java.awt.Point[x=15,y=30]")
     mp.removePropertyChangeListener(listener)
   }
 
+  test ("BufferInputStream"){
+    val origBuffer: String ="Hello\nBuffer\nTest\n"
+    val origFile:String = "test.txt"
+    val out = new PrintWriter(origFile)
+    out.print(origBuffer)
+    out.close()
+    val mystream = new ReadFileWithBuffer with DataInputStreamTrait
+    val file = new File("test.txt")
+    mystream.setStream( new FileInputStream(origFile) )
+    mystream.b = new Array[Byte](file.length.toInt)
+    mystream.read()
+    assert( origBuffer==mystream.log(mystream.b.map(_.toChar).mkString) )
+    new File(origFile).delete()
+  }
 
 }

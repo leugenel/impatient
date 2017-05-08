@@ -1,5 +1,6 @@
 package impatient
 import java.beans.{PropertyChangeEvent, PropertyChangeListener, PropertyChangeSupport}
+import java.io.{BufferedInputStream, DataInputStream, FilterInputStream, InputStream}
 /**
   * Created by eugenel on 4/18/17.
   */
@@ -80,7 +81,10 @@ class Caesar(var str:String, shftAmt: Int = 3) {
 }
 
 trait Logger {
-  def log(msg: String):String =  {""}
+  def log(msg: String):String =  {
+    println(msg)
+    msg
+  }
 }
 
 trait CryptoLogger extends Logger {
@@ -132,13 +136,13 @@ class myPoint extends java.awt.Point with PropertyChangeSupportTrait {
   val setLocation:String = "setLocation"
 
   override def move(x: Int, y: Int): Unit = {
-    val p:Point = new Point(getX.toInt, getY.toInt)
+    val p:java.awt.Point = new java.awt.Point(getX.toInt, getY.toInt)
     super.move(x, y)
     firePropertyChange(move, p, getLocation )
   }
 
   override def setLocation(x: Int, y: Int): Unit = {
-    val p:Point = new Point(getX.toInt, getY.toInt)
+    val p:java.awt.Point = new java.awt.Point(getX.toInt, getY.toInt)
     super.setLocation(x, y)
     firePropertyChange(setLocation, p, getLocation )
   }
@@ -151,3 +155,53 @@ class PointPropertyChangeListener extends PropertyChangeListener {
     savedEvent=evt
   }
 }
+
+//9
+//In the java.io library, you add buffering to an input stream with a BufferedInputStream decorator.
+// Reimplement buffering as a trait. For simplicity, override the read method.
+
+trait BufferedInputStreamTrait extends FilterInputStreamTrait{
+  var bis :BufferedInputStream = _
+
+  def read():Int={
+    bis.read(b, 0, -1)
+  }
+
+  def available():Int = {
+    bis.available()
+  }
+
+  def setStream(ins:InputStream): Unit ={
+    bis  = new BufferedInputStream(ins)
+  }
+}
+
+trait DataInputStreamTrait extends FilterInputStreamTrait{
+  var dis:DataInputStream =  _
+
+  def read():Int={
+    dis.read(b)
+  }
+
+  def available():Int = {
+    dis.available()
+  }
+
+  def setStream(ins:InputStream): Unit ={
+    dis  = new DataInputStream(ins)
+  }
+}
+
+trait FilterInputStreamTrait {
+  var in:InputStream = _
+  var b:Array[Byte]= _
+
+}
+
+//10
+//Using the logger traits from this chapter,
+// add logging to the solution of the preceding problem that demonstrates buffering.
+class ReadFileWithBuffer extends FilterInputStreamTrait with Logger
+
+
+
