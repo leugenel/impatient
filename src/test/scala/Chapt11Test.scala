@@ -1,6 +1,11 @@
 package impatient
 
+import java.io.{File, PrintWriter}
+import java.nio.file.{Path, Paths}
+
 import org.scalatest.FunSuite
+
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by eugenel on 5/8/17.
@@ -55,6 +60,66 @@ class Chapt11Test extends FunSuite {
     //The column only
     assert( ((new HTMLTableBuilder).Table() ||"Java" ||"Scala" || "Python").toString ==
             "<table><tr></tr><tr><td>Java</td></tr><tr><td>Scala</td></tr><tr><td>Python</td></tr></table>")
+
+  }
+
+  test("BitSequence"){
+    val bs = new BitSequence(9)
+    assert(bs(0)==1 && bs(1) ==0 && bs(2)==0 && bs(3)==1 )
+    assert(bs.toString=="1001")
+    //Set all bites to zero
+    bs(0) = 0
+    bs(3) = 0
+    assert(bs.toString=="0")
+    assert(bs(0)==0 && bs(1) ==0 && bs(2)==0 && bs(3)==0 )
+    //Set all bits 1
+    bs(0) = 1
+    bs(1) = 1
+    bs(2) = 1
+    bs(3) = 1
+    assert(bs.toString=="1111")
+    assert(bs(0)==1 && bs(1) ==1 && bs(2)==1 && bs(3)==1)
+  }
+
+  test ("PathComponents"){
+    //Prepare some file (will delete it at the end)
+    val someFile = new File("example.txt")
+    //Build Java object Path for this file
+    val mypath:Path = Paths.get(someFile.getAbsolutePath)
+    //Our class that includes Path
+    val pc:PathComponents = new PathComponents(mypath)
+    //This is exctractor
+    val PathComponents(path, name) = pc
+
+    assert(path.toString=="/Users/eugenel/Documents/Code/ImpatientScala/impatient")
+    assert(name.toString=="example.txt")
+
+    someFile.delete()
+  }
+
+  test ("PathComponentsSeq"){
+    //Prepare some file (will delete it at the end)
+    val someFile = new File("example.txt")
+    //Build Java object Path for this file
+    val mypath:Path = Paths.get(someFile.getAbsolutePath)
+    //Our class that includes Path
+    val pc:PathComponentsSeq = new PathComponentsSeq(mypath)
+    //This is exctractor
+    val PathComponentsSeq(lb @_*) = pc
+
+    assert(lb.mkString(",")=="Users,eugenel,Documents,Code,ImpatientScala,impatient,example.txt")
+    someFile.delete()
+  }
+
+  test("DynamicProps"){
+    var sysProps = new DynamicProps(System.getProperties)
+
+    println(sysProps.user.name)
+    sysProps.user.name = "Eugene"
+    println(sysProps.user.name)
+    println(sysProps.java.home)
+
+    //println(sysProps.java.home) //Error:(123, 27) value home is not a member of String  println(sysProps.java.home)
 
   }
 

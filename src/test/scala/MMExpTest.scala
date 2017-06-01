@@ -33,3 +33,43 @@ class MMExpTest extends FunSuite{
   println(noWind.totalTime + " hours")
 
 }
+
+class LorentzTransformTest extends FunSuite{
+
+  //Distance X measured in light-seconds, time in seconds c=1 light-second/second
+  //Velocity, Xr, Tr, c
+  cprint(new LorentzTransform(0.1, 0, 10, 1))
+  cprint(new LorentzTransform(0.1, 0, 20, 1))
+  cprint(new LorentzTransform(0.5, 0, 10, 1))
+  cprint(new LorentzTransform(0.5, 0, 20, 1))
+  cprint(new LorentzTransform(0.99, 0, 10, 1))
+  cprint(new LorentzTransform(0.99, 0, 20, 1))
+  cprint(new LorentzTransform(0.5, 100, 0, 1))
+  cprint(new LorentzTransform(0.5, 100, 10, 1))
+  cprint(new LorentzTransform(0.5, 100, 20, 1))
+  cprint(new LorentzTransform(0.5, 1000, 0, 1))
+  cprint(new LorentzTransform(0.5, 1000, 10, 1))
+  cprint(new LorentzTransform(0.5, 1000, 20, 1))
+  cprint(new LorentzTransform(0.5, 100000, 0, 1))
+  cprint(new LorentzTransform(0.5, 100000, 10, 1))
+  cprint(new LorentzTransform(0.5, 100000, 20, 1))
+  cprint(new LorentzTransform(0.99, 100, 0, 1))
+  cprint(new LorentzTransform(0.99, 100, 10, 1))
+  cprint(new LorentzTransform(0.99, 100, 20, 1))
+  cprint(new LorentzTransform(0.99, 1000, 0, 1))
+  cprint(new LorentzTransform(0.99, 1000, 10, 1))
+  cprint(new LorentzTransform(0.99, 1000, 20, 1))
+  cprint(new LorentzTransform(0.99, 100000, 0, 1))
+  cprint(new LorentzTransform(0.99, 100000, 10, 1))
+  cprint(new LorentzTransform(0.99, 100000, 20, 1))
+
+  //cprint(new LorentzTransform(0.99, 20.3, 0, 1))
+
+  def cprint(lf:LorentzTransform):Unit ={
+    println("=========================")
+    println("Velocity = " + lf.velocity+" Xr= "+ lf.Xr+" Tr= "+lf.Tr+" c= "+lf.c+" 1 light-second")
+    println("Then Gamma: "+lf.gamma+" Xl= "+ lf.Xl+" Tl= "+lf.Tl)
+    println("=========================")
+  }
+
+}

@@ -17,3 +17,21 @@ class Plane2Directions(PlanVelocity:Double, WindVelocity:Double, Distance:Double
   }
 
 }
+
+/**
+  * Lorentz Transformation
+  * @param velocity - rocket velocity related to c like 0.1c
+  * @param Xr - X of rocket
+  * @param Tr - time of rocket
+  *        Xl = X of laboratory
+  *        Tl = laboratory time
+  */
+class LorentzTransform(var velocity: Double, var Xr: Double , var Tr:Double, var c:Double = 300000.0){
+
+  def gamma:Double = 1/math.sqrt(1-velocity*velocity)
+
+  def Xl:Double = gamma*(Xr+velocity*c*Tr)
+  def Tl:Double = gamma*(Tr + Xr*(velocity/c))
+
+
+}
