@@ -28,10 +28,10 @@ class Plane2Directions(PlanVelocity:Double, WindVelocity:Double, Distance:Double
   */
 class LorentzTransform(var velocity: Double, var Xr: Double , var Tr:Double, var c:Double = 300000.0){
 
-  def gamma:Double = 1/math.sqrt(1-velocity*velocity)
+  def gamma:Double = 1/math.sqrt(1-(velocity*velocity)/(c*c))
 
-  def Xl:Double = gamma*(Xr+velocity*c*Tr)
-  def Tl:Double = gamma*(Tr + Xr*(velocity/c))
+  def Xl:Double = gamma*(Xr+velocity*Tr)
+  def Tl:Double = gamma*(Tr + Xr*(velocity/(c*c)))
 
 
 }
