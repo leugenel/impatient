@@ -38,6 +38,10 @@
       <property name="caretWidth" class="java.lang.Integer" />
     </properties>
   </component>
+  <component name="IpnbSettings">
+    <option name="arguments" value="token=3e04e03d617b1b02338306410dfed31d2a92a66f6b98f7c5" />
+    <option name="workingDirectory" value="" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
