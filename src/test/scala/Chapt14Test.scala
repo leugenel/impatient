@@ -29,4 +29,48 @@ class Chapt14Test extends FunSuite{
     assert(chapt14.treeSum(nodeRoot) == 8)
   }
 
+  test ("Tree sum #2"){
+    val chapt14 = new Chapt14()
+    val problemNode = chapt14.Node(chapt14.Node(chapt14.Leaf(3), chapt14.Leaf(8)), chapt14.Leaf(2), chapt14.Node(chapt14.Leaf(5)))
+    assert(chapt14.treeSum2(problemNode) == 18)
+    assert(chapt14.treeSum2(chapt14.Leaf(2)) == 2)
+    assert(chapt14.treeSum2(chapt14.Node(chapt14.Node(chapt14.Leaf(0)))) == 0)
+    val problemNode2 = chapt14.Node(chapt14.Node(chapt14.Node(chapt14.Leaf(3), chapt14.Leaf(8))), chapt14.Node(chapt14.Leaf(2)), chapt14.Node(chapt14.Leaf(5)), chapt14.Leaf(1))
+    assert(chapt14.treeSum2(problemNode2) == 19)
+
+  }
+
+  test ("Tree sum ex#8"){
+    val chapt14 = new Chapt14()
+    val problemNode = chapt14.NodeOperator(chapt14.+, chapt14.NodeOperator(chapt14.*, chapt14.Leaf(3), chapt14.Leaf(8)), chapt14.Leaf(2),
+                                          chapt14.NodeOperator(chapt14.-, chapt14.Leaf(0), chapt14.Leaf(5)) )
+
+    assert(chapt14.eval( chapt14.NodeOperator( chapt14./ , chapt14.Leaf(5), chapt14.Leaf(2)) )  == 2 )
+    assert(chapt14.eval( chapt14.NodeOperator(chapt14.+, chapt14.NodeOperator(chapt14.*, chapt14.Leaf(3), chapt14.Leaf(8)),
+            chapt14.NodeOperator(chapt14.-, chapt14.Leaf(0), chapt14.Leaf(5)) ) ) == 19 )
+    assert(chapt14.eval(problemNode) == 21)
+    assert(chapt14.eval(chapt14.NodeOperator(chapt14.-, chapt14.Leaf(0))) == 0)
+    assert(chapt14.eval(chapt14.NodeOperator(chapt14./, chapt14.Leaf(1), chapt14.Leaf(0) ) ) == 1)
+
+  }
+
+  test ("Sum non None"){
+    val chapt14 = new Chapt14()
+    assert(chapt14.sumNonNone(List( Option(1), None, Option(1))) == 2)
+    assert(chapt14.sumNonNone(List( Option(1), None, Option(1), None, Some(32))) == 34)
+    assert(chapt14.sumNonNone(List(None)) == 0)
+  }
+
+  test ("Function from Fuction"){
+    val chapt14 = new Chapt14()
+    def f(x: Double) = if (x != 1) Some(1 / (x - 1)) else None
+    def g(x: Double) = if (x >= 0) Some(math.sqrt(x)) else None
+    val h = chapt14.compose(g, f)
+    assert(h(2.0) == Some(1.0))
+    assert(h(1.0) == None)
+    assert(h(0) == None)
+    assert(h(5)==Some(0.5))
+  }
+
+
 }

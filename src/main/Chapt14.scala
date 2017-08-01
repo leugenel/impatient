@@ -30,5 +30,57 @@ class Chapt14 {
 
   }
 
+  //Ex #7
+  sealed abstract class BinaryTree
+  case class Leaf(value: Int) extends BinaryTree
+  case class Node(node: BinaryTree*) extends BinaryTree
+
+  def treeSum2(node: BinaryTree):Int = {
+    node match {
+      case Leaf(x) => x
+      case Node(narr @ _*) => narr.foldLeft(0)((sum, curr) => sum + treeSum2(curr))
+    }
+
+  }
+
+  //Ex #8
+  //Extend the tree in the preceding exercise so that each nonleaf node stores an operator in addition to the child nodes.
+  // Then write a function eval that computes the value.
+  case class NodeOperator(op : (Int, BinaryTree) => Int, node: BinaryTree*) extends BinaryTree
+
+  val +  = (a:Int, b:BinaryTree) => a + eval(b)
+  val -  = (a:Int, b:BinaryTree) => a - eval(b)
+  val *  = (a:Int, b:BinaryTree) => a * eval(b)
+  val /  = (a:Int, b:BinaryTree) => if (eval(b)!=0) a/eval(b) else a
+
+  def eval (node: BinaryTree):Int = {
+    node match {
+      case Leaf(x) => x
+      case NodeOperator(op, narr @ _*) =>  narr.tail.foldLeft(eval(narr.head))( (sum, curr) => op(sum,curr) )
+    }
+  }
+
+  //Ex #9
+  //Write a function that computes the sum of the non-None values in a List[Option[Int]]
+  //Don’t use a match statement
+  def sumNonNone(ls:List[Option[Int]]):Int = {
+
+    ls.foldLeft(0)( (sum ,curr) => sum + (curr match {
+              case Some(a) => a
+              case None => 0
+           }
+      )
+    )
+  }
+  //Ex #10
+  //Write a function that composes two functions of type Double => Option[Double],
+  //yielding another function of the same type.
+  //The composition should yield None if either function does.
+  def compose ( g: Double=>Option[Double], f: Double=>Option[Double] ): Double => Option[Double] = {
+    (x: Double) => f(x) match {
+      case Some(a) => g(a)
+      case _ => None
+    }
+  }
 
 }
